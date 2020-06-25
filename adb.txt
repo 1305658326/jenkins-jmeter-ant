@@ -1,0 +1,59 @@
+连接到模拟器：adb connect ip：端口
+查看连接设备：adb devices
+
+安装:adb install C:\Users\ASUS\Desktop\移动端测试\news.apk
+
+查看包名和安装路径:
+adb shell dumpsys window | findstr mCurrentFocus
+	mCurrentFocus=Window{3571701 u0 com.netease.newsreader.activity/com.netease.nr.phone.main.MainActivity}
+com.netease.newsreader.activity(包名)
+
+卸载：
+adb   uninstall 主包名
+
+指定某一终端执行命令：
+adb -s 127.0.0.1:62001  install  C:\Users\ASUS\Desktop\移动端测试\news.apk
+
+进入超级终端
+adb  shell
+退出终端
+exit
+
+复制文件到手机端：
+adb  push  本地文件路径/文件名    手机端路径
+adb  push  C:\Users\ASUS\Desktop\adb.txt      /sdcard/
+
+从手机端断复制文件到本地
+adb  push  手机端路径	本地文件路径/文件名(不能是跟目录)    
+adb  pull  /sdcard/server.log      C:\Users\ASUS\Desktop\
+
+查看全部日志：
+adb logcat
+
+将日志输出到文件：
+adb    logcat -f    路径
+adb    logcat -f   /sdcard/long.log
+
+查看指定的日志：
+先执行：adb shell
+logcat |grep  "查询的信息"
+
+查看指定app的相关信息
+adb shell dumpsys package   包名
+
+查看app的安装路径：
+adb shell pm path <package_name>
+
+删除不包相关的所有数据，清除数据和缓存：
+adb shell pm clear <package_name>
+
+查看某个app的迚程相关信息：
+先进adb shell
+adb shell ps | grep <package_name>
+
+杀掉某个迚程，一般用于模拟某个bug复现：
+adb shell kill pidNumber
+
+利用adb命令按住按键：
+adb shell input keyevent KEYCODE_POWER
+KEYCODE_POWER为键值
